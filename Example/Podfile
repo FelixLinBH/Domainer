@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'Domainer_Example' do
+  pod 'Domainer', :path => '../'
+
+  target 'Domainer_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
