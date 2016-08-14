@@ -36,7 +36,7 @@ TODO: Add long description of the pod here.
   #   'Domainer' => ['Domainer/Assets/*.png']
   # }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
+  s.public_header_files = 'Domainer/Classes/**/*.h'
+  s.frameworks = 'Foundation'
   # s.dependency 'AFNetworking', '~> 2.3'
 end
