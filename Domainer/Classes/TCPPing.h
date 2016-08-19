@@ -7,7 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "TcpPingResult.h"
+
+typedef void (^TcpPingCompleteHandler)(TcpPingResult*);
 
 @interface TCPPing : NSObject
-
+@property (nonatomic) NSInteger count;
+@property (readonly) TcpPingCompleteHandler complete;
 @end
