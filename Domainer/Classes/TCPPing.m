@@ -38,6 +38,7 @@
 }
 
 - (void)connectIPAdressWith:(struct sockaddr_in)addr{
+    
     NSTimeInterval *intervals = (NSTimeInterval *)malloc(sizeof(NSTimeInterval) * _count);
     int index = 0;
     int r = 0;
@@ -84,6 +85,26 @@
     }
     close(sock);
     return 0;
+}
+
+- (TcpPingResult *)buildResult:(NSInteger)code
+                        durations:(NSTimeInterval *)durations
+                            count:(NSInteger)count {
+    NSTimeInterval max = 0;
+    NSTimeInterval min = 10000000;
+    NSTimeInterval sum = 0;
+    for (int i = 0; i < count; i++) {
+        if (durations[i] > max) {
+            max = durations[i];
+        }
+        if (durations[i] < min) {
+            min = durations[i];
+        }
+        sum += durations[i];
+    }
+    
+    NSTimeInterval avg = sum / count;
+    return [[TcpPingResult alloc]initWithCode:code avgTime:avg];
 }
 
 
