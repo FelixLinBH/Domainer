@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface TcpPingResult : NSObject
-
+@property NSInteger code;
+@property NSTimeInterval avgTime;
 @end
