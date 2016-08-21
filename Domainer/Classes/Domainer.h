@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import "DomainMapping.h"
 @interface Domainer : NSObject
-
+@property (nonatomic) NSArray *domainSet;
++ (Domainer *)sharedInstance;
++ (void)setMapper:(NSDictionary *)dictionary;
 @end
