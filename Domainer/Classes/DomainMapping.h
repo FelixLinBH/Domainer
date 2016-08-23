@@ -10,6 +10,6 @@
 
 @interface DomainMapping : NSObject
 @property (nonatomic) NSString *domainName;
-@property (nonatomic, readonly) NSArray *dnsMappingArray;
+@property (nonatomic, readonly) NSMutableArray *dnsMappingMutableArray;
 -(instancetype)initWithDomainMapping:(NSDictionary *)dictionary;
 @end

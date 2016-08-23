@@ -14,5 +14,5 @@
 @property (nonatomic) NSString *ip;
 @property (nonatomic) NSInteger weight;
 @property (readonly) NSTimeInterval avgTime;
-
+-(instancetype)initWithHost:(NSString *)host;
 @end

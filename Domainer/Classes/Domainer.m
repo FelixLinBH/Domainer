@@ -28,9 +28,12 @@
 
 #pragma mark - Implementation
 - (void)setMapper:(NSArray *)mappingArray{
-    
-    _domainSet = [[NSArray alloc]initWithArray:nil];
-//    _mapper = [[DomainMapping alloc]initWithDomainMapping:dictionary];
+    NSMutableArray *array = [NSMutableArray new];
+    for (NSDictionary *item in mappingArray) {
+        DomainMapping *mapping = [[DomainMapping alloc]initWithDomainMapping:item];
+        [array addObject:mapping];
+    }
+
 }
 
 

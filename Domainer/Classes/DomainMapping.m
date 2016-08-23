@@ -7,25 +7,29 @@
 //
 
 #import "DomainMapping.h"
+#import "DNSMapping.h"
 /*
- [{
+ {
     "mainDomainName":"www.mainDomain.com",
     "mapping":[
         "www.domain1.com",
         "www.domain2.com"
     ]
- },
- {
-    "mainDomainName":"www.mainDomain-2.com",
-    "mapping":[
-        "www.domain-2-1.com",
-        "www.domain-2-2.com"
-    ]
- }]
+ }
 */
 
 @implementation DomainMapping
 -(instancetype)initWithDomainMapping:(NSDictionary *)dictionary{
-    
+    self = [super init];
+    if (self) {
+        _domainName = dictionary[@"mainDomainName"];
+        _dnsMappingMutableArray = [NSMutableArray new];
+        for (NSString *domainString in dictionary[@"mapping"]) {
+            DNSMapping *dnsMapping = [[DNSMapping alloc]initWithHost:domainString];
+            [_dnsMappingMutableArray addObject:dnsMapping];
+        }
+
+    }
+    return self;
 }
 @end

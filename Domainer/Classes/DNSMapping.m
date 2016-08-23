@@ -10,4 +10,11 @@
 
 @implementation DNSMapping
 
+-(instancetype)initWithHost:(NSString *)host{
+    self = [super init];
+    if (self) {
+        _host = host;
+    }
+    return self;
+}
 @end
