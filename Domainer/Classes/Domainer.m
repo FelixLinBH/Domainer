@@ -22,12 +22,12 @@
     return sharedInstance;
 }
 
-+ (void)setMapper:(NSDictionary *)dictionary{
-    [[self sharedInstance]setDomainMapping:dictionary];
++ (void)setMapper:(NSArray *)mappingArray{
+    [[self sharedInstance]setMapper:mappingArray];
 }
 
 #pragma mark - Implementation
-- (void)setDomainMapping:(NSDictionary *)dictionary{
+- (void)setMapper:(NSArray *)mappingArray{
     
     _domainSet = [[NSArray alloc]initWithArray:nil];
 //    _mapper = [[DomainMapping alloc]initWithDomainMapping:dictionary];

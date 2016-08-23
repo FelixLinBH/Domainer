@@ -1,0 +1,8 @@
+ [{
+  "mainDomainName":"www.mainDomain.com",
+    "mapping":["www.domain1.com","www.domain2.com","www.domain3.com"]
+  }
+  ,
+  {"mainDomainName":"www.mainDomain2.com",
+  "mapping":["www.domain4.com","www.domain5.com","www.domain6.com"]
+  }]
