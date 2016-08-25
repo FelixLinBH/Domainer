@@ -26,14 +26,27 @@
     [[self sharedInstance]setMapper:mappingArray];
 }
 
++ (void)setCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler{
+    [[self sharedInstance]setCompleteHandler:completeHandler];
+}
+
++ (void)start{
+    [[self sharedInstance]run];
+}
+
 #pragma mark - Implementation
 - (void)setMapper:(NSArray *)mappingArray{
-    NSMutableArray *array = [NSMutableArray new];
+    _domainArray = [NSMutableArray new];
     for (NSDictionary *item in mappingArray) {
         DomainMapping *mapping = [[DomainMapping alloc]initWithDomainMapping:item];
-        [array addObject:mapping];
+        [_domainArray addObject:mapping];
     }
+}
 
+- (void)run{
+    if (_completeHandler) {
+        
+    }
 }
 
 

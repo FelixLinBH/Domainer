@@ -8,7 +8,14 @@
 
 #import <Foundation/Foundation.h>
 #import "DomainMapping.h"
+typedef void (^completeHandler)(BOOL sucess, NSError *error);
+
 @interface Domainer : NSObject
+@property (copy, nonatomic) completeHandler completeHandler;
+@property (copy, nonatomic) NSMutableArray *domainArray;
 + (Domainer *)sharedInstance;
 + (void)setMapper:(NSArray *)mappingArray;
++ (void)setCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler;
++ (void)start;
+
 @end
