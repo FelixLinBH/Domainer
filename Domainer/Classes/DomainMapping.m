@@ -34,11 +34,13 @@
     return self;
 }
 
--(void)run{
+-(void)findBestDomainWithCompleteHandler:(completeHandler)complete{
     for (DNSMapping *item in _dnsMappingMutableArray) {
-        [item connectHostWithComplete:^(DNSMapping *dnsMapping) {
+        [item connectHostWithComplete:^(void) {
             
         }];
     }
+
 }
+
 @end

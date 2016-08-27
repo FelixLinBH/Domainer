@@ -26,7 +26,7 @@
         _code = r.code;
         _ip = r.ip;
         if (complete) {
-            complete(self);
+            complete();
         }
     }];
 }

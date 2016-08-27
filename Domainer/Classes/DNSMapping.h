@@ -10,7 +10,7 @@
 
 @interface DNSMapping : NSObject
 
-typedef void (^DNSCompleteHandler)(DNSMapping *dnsMapping);
+typedef void (^DNSCompleteHandler)(void);
 
 @property (nonatomic) NSString *host;
 @property (nonatomic) NSString *ip;
