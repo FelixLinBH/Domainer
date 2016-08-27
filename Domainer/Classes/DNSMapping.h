@@ -10,10 +10,12 @@
 
 @interface DNSMapping : NSObject
 
+typedef void (^DNSCompleteHandler)(DNSMapping *dnsMapping);
+
 @property (nonatomic) NSString *host;
 @property (nonatomic) NSString *ip;
-@property (readonly) NSTimeInterval avgTime;
+@property (nonatomic) NSTimeInterval avgTime;
 @property (nonatomic) NSInteger *code;
 -(instancetype)initWithHost:(NSString *)host;
--(void)connect;
+-(void)connectHostWithComplete:(DNSCompleteHandler)complete;
 @end

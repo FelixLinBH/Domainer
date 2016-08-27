@@ -19,11 +19,15 @@
     return self;
 }
 
--(void)connect{
+
+-(void)connectHostWithComplete:(DNSCompleteHandler)complete{
     [TCPPing start:_host complete:^(TcpPingResult *r) {
         _avgTime = r.avgTime;
         _code = r.code;
         _ip = r.ip;
+        if (complete) {
+            complete(self);
+        }
     }];
 }
 @end

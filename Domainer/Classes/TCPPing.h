@@ -11,7 +11,7 @@
 #define CONNECT_TIMES 3
 #define TCP_PORT 80
 
-typedef void (^TcpPingCompleteHandler)(TcpPingResult*);
+typedef void (^TcpPingCompleteHandler)(TcpPingResult *r);
 
 @interface TCPPing : NSObject
 

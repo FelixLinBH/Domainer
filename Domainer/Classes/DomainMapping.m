@@ -35,8 +35,10 @@
 }
 
 -(void)run{
-    for (DNSMapping *item  in _dnsMappingMutableArray) {
-        
+    for (DNSMapping *item in _dnsMappingMutableArray) {
+        [item connectHostWithComplete:^(DNSMapping *dnsMapping) {
+            
+        }];
     }
 }
 @end
