@@ -35,15 +35,25 @@
 }
 
 #pragma mark - Implementation
+- (instancetype)init{
+    self = [super init];
+    if (self) {
+        _queue = [[NSOperationQueue alloc]init];
+        _queue.maxConcurrentOperationCount = 2;
+    }
+    return self;
+}
+
 - (void)setMapper:(NSArray *)mappingArray{
-    _domainArray = [NSMutableArray new];
     for (NSDictionary *item in mappingArray) {
         DomainMapping *mapping = [[DomainMapping alloc]initWithDomainMapping:item];
-        [_domainArray addObject:mapping];
+        [_queue addOperation:mapping];
     }
+    
 }
 
 - (void)run{
+    
     if (_completeHandler) {
         
     }

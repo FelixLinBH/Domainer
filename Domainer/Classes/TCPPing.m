@@ -64,7 +64,8 @@
     return 0;
 }
 
-- (TcpPingResult *)buildResult:(NSInteger)code
+- (TcpPingResult *)buildResultIp:(NSString *)ip
+                            code:(NSInteger)code
                         durations:(NSTimeInterval *)durations
                             count:(NSInteger)count {
     NSTimeInterval max = 0;
@@ -81,7 +82,7 @@
     }
     
     NSTimeInterval avg = sum / count;
-    return [[TcpPingResult alloc]initWithCode:code avgTime:avg];
+    return [[TcpPingResult alloc]initWithIp:ip Code:code avgTime:avg];
 }
 
 
@@ -97,8 +98,8 @@
         if (hostent == NULL || hostent->h_addr == NULL) {
             NSLog(@"DNS Failed");
             if (_complete != nil) {
-                dispatch_async(dispatch_get_main_queue(), ^(void) {
-                    _complete([self buildResult:-1 durations:nil count:0]);
+                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                    _complete([self buildResultIp:nil code:-1 durations:nil count:0]);
                 });
             }
             return;
@@ -107,8 +108,9 @@
         
     }else{
         NSLog(@"INADDR_NONE");
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            _complete([self buildResult:-2 durations:nil count:0]);
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+             _complete([self buildResultIp:nil code:-2 durations:nil count:0]);
+            
         });
         return;
     }
@@ -130,9 +132,9 @@
     if (_complete) {
         NSInteger code = r;
         
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+            _complete([self buildResultIp: [NSString stringWithUTF8String:inet_ntoa(addr.sin_addr)] code:code durations:intervals count:index]);
             
-            _complete([self buildResult:code durations:intervals count:index]);
             
             free(intervals);
         });

@@ -12,7 +12,8 @@ typedef void (^completeHandler)(BOOL sucess, NSError *error);
 
 @interface Domainer : NSObject
 @property (copy, nonatomic) completeHandler completeHandler;
-@property (copy, nonatomic) NSMutableArray *domainArray;
+@property (nonatomic, strong) NSOperationQueue *queue;
+
 + (Domainer *)sharedInstance;
 + (void)setMapper:(NSArray *)mappingArray;
 + (void)setCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler;

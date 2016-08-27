@@ -11,5 +11,6 @@
 @interface TcpPingResult : NSObject
 @property NSInteger code;
 @property NSTimeInterval avgTime;
--(instancetype)initWithCode:(NSInteger)code avgTime:(NSTimeInterval)avgTime;
+@property NSString *ip;
+-(instancetype)initWithIp:(NSString *)ip Code:(NSInteger)code avgTime:(NSTimeInterval)avgTime;
 @end

@@ -8,6 +8,7 @@
 
 #import "DomainMapping.h"
 #import "DNSMapping.h"
+
 /*
  {
     "mainDomainName":"www.mainDomain.com",
@@ -31,5 +32,11 @@
 
     }
     return self;
+}
+
+-(void)run{
+    for (DNSMapping *item  in _dnsMappingMutableArray) {
+        
+    }
 }
 @end

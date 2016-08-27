@@ -7,6 +7,7 @@
 //
 
 #import "DNSMapping.h"
+#import "TCPPing.h"
 
 @implementation DNSMapping
 
@@ -16,5 +17,13 @@
         _host = host;
     }
     return self;
+}
+
+-(void)connect{
+    [TCPPing start:_host complete:^(TcpPingResult *r) {
+        _avgTime = r.avgTime;
+        _code = r.code;
+        _ip = r.ip;
+    }];
 }
 @end

@@ -12,4 +12,5 @@
 @property (nonatomic) NSString *domainName;
 @property (nonatomic, readonly) NSMutableArray *dnsMappingMutableArray;
 -(instancetype)initWithDomainMapping:(NSDictionary *)dictionary;
+-(void)run;
 @end
