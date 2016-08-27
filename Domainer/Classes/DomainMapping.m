@@ -35,6 +35,14 @@
 }
 
 -(void)findBestDomainWithCompleteHandler:(completeHandler)complete{
+    //from last dns mapping result
+    NSData *encodedObject = [[NSUserDefaults standardUserDefaults]objectForKey:_domainName];
+    if (encodedObject) {
+        DNSMapping *bestDomain = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
+        complete(YES);
+        return;
+    }
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         
         dispatch_group_t dnsTcpPingGroup = dispatch_group_create();

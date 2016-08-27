@@ -36,6 +36,7 @@
     [encoder encodeDouble:_avgTime forKey:@"avgTime"];
     [encoder encodeInteger:_code forKey:@"code"];
     [encoder encodeObject:_ip forKey:@"ip"];
+    [encoder encodeObject:_host forKey:@"host"];
 }
 
 - (id)initWithCoder:(NSCoder *)decoder {
@@ -44,6 +45,7 @@
         _avgTime = [decoder decodeDoubleForKey:@"avgTime"];
         _code = [decoder decodeIntegerForKey:@"code"];
         _ip = [decoder decodeObjectForKey:@"ip"];
+        _host = [decoder decodeObjectForKey:@"host"];
     }
     return self;
 }
