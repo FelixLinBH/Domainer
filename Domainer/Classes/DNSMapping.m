@@ -30,4 +30,22 @@
         }
     }];
 }
+
+- (void)encodeWithCoder:(NSCoder *)encoder {
+    //Encode properties, other class variables, etc.
+    [encoder encodeDouble:_avgTime forKey:@"avgTime"];
+    [encoder encodeInteger:_code forKey:@"code"];
+    [encoder encodeObject:_ip forKey:@"ip"];
+}
+
+- (id)initWithCoder:(NSCoder *)decoder {
+    if((self = [super init])) {
+        //decode properties, other class vars
+        _avgTime = [decoder decodeDoubleForKey:@"avgTime"];
+        _code = [decoder decodeIntegerForKey:@"code"];
+        _ip = [decoder decodeObjectForKey:@"ip"];
+    }
+    return self;
+}
+
 @end

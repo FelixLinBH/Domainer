@@ -18,6 +18,17 @@
     NSArray *jsonArray = [NSJSONSerialization JSONObjectWithData:data options:kNilOptions error:nil];
     [Domainer setMapper:jsonArray];
     
+    
+    [Domainer runWithCompleteHandler:^(BOOL sucess, NSArray *noResolvedDomain) {
+        if (sucess) {
+            NSLog(@"Domainer Sucess");
+        }else{
+            NSLog(@"Some Failes");
+        }
+        
+    }];
+    NSLog(@"Main thread Pass");
+    
     return YES;
 }
 

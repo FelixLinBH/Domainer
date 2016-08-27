@@ -35,12 +35,41 @@
 }
 
 -(void)findBestDomainWithCompleteHandler:(completeHandler)complete{
-    for (DNSMapping *item in _dnsMappingMutableArray) {
-        [item connectHostWithComplete:^(void) {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        
+        dispatch_group_t dnsTcpPingGroup = dispatch_group_create();
+        
+        for (DNSMapping *item in _dnsMappingMutableArray) {
+            dispatch_group_enter(dnsTcpPingGroup);
+            [item connectHostWithComplete:^(void) {
+                dispatch_group_leave(dnsTcpPingGroup);
+            }];
+        }
+        
+        dispatch_group_wait(dnsTcpPingGroup, DISPATCH_TIME_FOREVER);
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{ // 6
             
-        }];
-    }
-
+            if (complete) { // 7
+                NSSortDescriptor * descriptor = [[NSSortDescriptor alloc] initWithKey:@"avgTime" ascending:YES];
+                _dnsMappingMutableArray = [_dnsMappingMutableArray sortedArrayUsingDescriptors:@[descriptor]];
+                DNSMapping *bestDomain = _dnsMappingMutableArray.firstObject;
+                if (!isnan(bestDomain.avgTime)) {
+                    //found best domain
+                     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:bestDomain];
+                    
+                    [[NSUserDefaults standardUserDefaults]setObject:encodedObject forKey:_domainName];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    //save NSUserDefaults
+                    //swizzle NSURLRequest
+                    complete(YES);
+                }else{
+                    complete(NO);
+                }
+                
+            }
+        });
+    });
 }
 
 @end

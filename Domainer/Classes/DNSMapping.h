@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface DNSMapping : NSObject
+@interface DNSMapping : NSObject<NSCoding>
 
 typedef void (^DNSCompleteHandler)(void);
 

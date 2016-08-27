@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-typedef void (^completeHandler)(BOOL sucess, NSError *error);
+typedef void (^completeHandler)(BOOL sucess);
 
 @interface DomainMapping : NSObject
 @property (nonatomic) NSString *domainName;

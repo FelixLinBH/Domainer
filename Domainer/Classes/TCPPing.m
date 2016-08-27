@@ -82,6 +82,7 @@
     }
     
     NSTimeInterval avg = sum / count;
+    avg = (isnan(avg))?FLT_MAX:avg;
     return [[TcpPingResult alloc]initWithIp:ip Code:code avgTime:avg];
 }
 
@@ -96,7 +97,6 @@
     if (addr.sin_addr.s_addr == INADDR_NONE) {
         struct hostent *hostent = gethostbyname([_host UTF8String]);
         if (hostent == NULL || hostent->h_addr == NULL) {
-            NSLog(@"DNS Failed");
             if (_complete != nil) {
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
                     _complete([self buildResultIp:nil code:-1 durations:nil count:0]);
@@ -107,7 +107,6 @@
         addr.sin_addr = *(struct in_addr *)hostent->h_addr;
         
     }else{
-        NSLog(@"INADDR_NONE");
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
              _complete([self buildResultIp:nil code:-2 durations:nil count:0]);
             

@@ -8,9 +8,10 @@
 #import "TcpPingResult.h"
 
 @implementation TcpPingResult
--(instancetype)initWithCode:(NSInteger)code avgTime:(NSTimeInterval)avgTime{
+-(instancetype)initWithIp:(NSString *)ip Code:(NSInteger)code avgTime:(NSTimeInterval)avgTime{
     self = [super init];
     if (self) {
+        _ip = ip;
         _code = code;
         _avgTime = avgTime;
     }

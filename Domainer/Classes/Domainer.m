@@ -26,20 +26,15 @@
     [[self sharedInstance]setMapper:mappingArray];
 }
 
-+ (void)setCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler{
-    [[self sharedInstance]setCompleteHandler:completeHandler];
-}
-
-+ (void)start{
-    [[self sharedInstance]run];
++ (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler{
+    [[self sharedInstance]runWithCompleteHandler:completeHandler];
 }
 
 #pragma mark - Implementation
 - (instancetype)init{
     self = [super init];
     if (self) {
-        _queue = [[NSOperationQueue alloc]init];
-        _queue.maxConcurrentOperationCount = 2;
+        _domainArray = [[NSMutableArray alloc]init];
     }
     return self;
 }
@@ -47,17 +42,37 @@
 - (void)setMapper:(NSArray *)mappingArray{
     for (NSDictionary *item in mappingArray) {
         DomainMapping *mapping = [[DomainMapping alloc]initWithDomainMapping:item];
-        [_queue addOperation:mapping];
+        [_domainArray addObject:mapping];
     }
-    
 }
 
-- (void)run{
-    
-    if (_completeHandler) {
+- (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler{
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        NSMutableArray *noResolvedDomain = [[NSMutableArray alloc]init];
+        dispatch_group_t mappingGroup = dispatch_group_create();
+        for (DomainMapping *item in _domainArray) {
+            dispatch_group_enter(mappingGroup);
+            [item findBestDomainWithCompleteHandler:^(BOOL sucess) {
+                if (!sucess) {
+                    [noResolvedDomain addObject:item];
+                }
+                dispatch_group_leave(mappingGroup);
+            }];
+        }
+        dispatch_group_wait(mappingGroup, DISPATCH_TIME_FOREVER);
         
-    }
+        dispatch_async(dispatch_get_main_queue(), ^{
+            if (completeHandler) {
+                if ([noResolvedDomain count]) {
+                    completeHandler(YES,noResolvedDomain);
+                }
+                completeHandler(YES,nil);
+            }
+        });
+    });
 }
+
+
 
 
 @end
