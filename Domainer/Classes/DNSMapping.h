@@ -15,7 +15,7 @@ typedef void (^DNSCompleteHandler)(void);
 @property (nonatomic) NSString *host;
 @property (nonatomic) NSString *ip;
 @property (nonatomic) NSTimeInterval avgTime;
-@property (nonatomic) NSInteger *code;
+@property (nonatomic) NSInteger code;
 -(instancetype)initWithHost:(NSString *)host;
 -(void)connectHostWithComplete:(DNSCompleteHandler)complete;
 -(void)connectIPWithComplete:(DNSCompleteHandler)complete;

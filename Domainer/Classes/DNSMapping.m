@@ -22,8 +22,8 @@
 
 -(void)connectHostWithComplete:(DNSCompleteHandler)complete{
     [TCPPing start:_host complete:^(TcpPingResult *r) {
-        _avgTime = (NSInteger)r.avgTime;
-        _code = (NSInteger)r.code;
+        _avgTime = r.avgTime;
+        _code = r.code;
         _ip = r.ip;
         if (complete) {
             complete();
@@ -33,8 +33,8 @@
 
 -(void)connectIPWithComplete:(DNSCompleteHandler)complete{
    [TCPPing startWithIP:_ip complete:^(TcpPingResult *r) {
-       _avgTime = (NSInteger)r.avgTime;
-       _code = (NSInteger)r.code;
+       _avgTime = r.avgTime;
+       _code = r.code;
        if (complete) {
            complete();
        }
@@ -43,8 +43,8 @@
 
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc.
-    [encoder encodeDouble:(NSInteger)_avgTime forKey:@"avgTime"];
-    [encoder encodeInteger:(NSInteger)_code forKey:@"code"];
+    [encoder encodeDouble:_avgTime forKey:@"avgTime"];
+    [encoder encodeInteger:_code forKey:@"code"];
     [encoder encodeObject:_ip forKey:@"ip"];
     [encoder encodeObject:_host forKey:@"host"];
 }
