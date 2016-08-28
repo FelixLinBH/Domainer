@@ -23,7 +23,7 @@
         if (sucess) {
             NSURL *url = [NSURL URLWithString:@"http://www.mainDomain.com"];
             NSURLRequest *request =  [NSURLRequest requestWithURL:url];
-            NSLog(@"request %@",request);
+            NSLog(@"request => %@",request);
         }else{
             NSLog(@"Some Failes");
         }

@@ -9,7 +9,7 @@
 Pod::Spec.new do |s|
   s.name             = 'Domainer'
   s.version          = '0.1.0'
-  s.summary          = 'A short description of Domainer.'
+s.summary          = 'Manage multi-domain url auto mapping ip address table.'
 
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
@@ -18,10 +18,10 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+Manage multi-domain url mapping IP address,it prodives find best domain which with low latency,bypass dns resolver when ip table exists the domain.
                        DESC
 
-  s.homepage         = 'https://github.com/<GITHUB_USERNAME>/Domainer'
+  s.homepage         = 'https://github.com/FelixLinBH/Domainer'
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'felix.lin' => 'fly_81211@hotmail.com' }
