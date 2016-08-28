@@ -27,12 +27,35 @@
     return ping;
 }
 
++ (instancetype)startWithIP:(NSString*)ip
+             complete:(TcpPingCompleteHandler)complete{
+    TCPPing *ping = [[TCPPing alloc]initIp:ip complete:complete count:CONNECT_TIMES port:TCP_PORT];
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+        [ping run];
+    });
+    return ping;
+}
+
+#pragma mark - Implementation
 - (instancetype)init:(NSString *)host
             complete:(TcpPingCompleteHandler)complete
                count:(NSInteger)count
                 port:(NSUInteger)port{
     if (self = [super init]) {
         _host = host;
+        _complete = complete;
+        _count = count;
+        _port = port;
+    }
+    return self;
+}
+
+- (instancetype)initIp:(NSString *)ip
+            complete:(TcpPingCompleteHandler)complete
+               count:(NSInteger)count
+                port:(NSUInteger)port{
+    if (self = [super init]) {
+        _ip = ip;
         _complete = complete;
         _count = count;
         _port = port;
@@ -90,28 +113,38 @@
 - (void)run {
     struct sockaddr_in addr;
     memset(&addr, 0, sizeof(addr));
-    addr.sin_len = sizeof(addr);
-    addr.sin_family = AF_INET;
-    addr.sin_port = htons(_port);
-    addr.sin_addr.s_addr = inet_addr([_host UTF8String]);
-    if (addr.sin_addr.s_addr == INADDR_NONE) {
-        struct hostent *hostent = gethostbyname([_host UTF8String]);
-        if (hostent == NULL || hostent->h_addr == NULL) {
-            if (_complete != nil) {
-                dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-                    _complete([self buildResultIp:nil code:-1 durations:nil count:0]);
-                });
-            }
-            return;
-        }
-        addr.sin_addr = *(struct in_addr *)hostent->h_addr;
-        
-    }else{
+    if (!(_host || _ip) || !_port) {
         dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
-             _complete([self buildResultIp:nil code:-2 durations:nil count:0]);
-            
+            _complete([self buildResultIp:nil code:-3 durations:nil count:0]);
         });
         return;
+    }
+    if (_ip == nil) {
+        addr.sin_len = sizeof(addr);
+        addr.sin_family = AF_INET;
+        addr.sin_port = htons(_port);
+        addr.sin_addr.s_addr = inet_addr([_host UTF8String]);
+        if (addr.sin_addr.s_addr == INADDR_NONE) {
+            struct hostent *hostent = gethostbyname([_host UTF8String]);
+            if (hostent == NULL || hostent->h_addr == NULL) {
+                if (_complete != nil) {
+                    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                        _complete([self buildResultIp:nil code:-1 durations:nil count:0]);
+                    });
+                }
+                return;
+            }
+            addr.sin_addr = *(struct in_addr *)hostent->h_addr;
+            
+        }else{
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^(void) {
+                _complete([self buildResultIp:nil code:-2 durations:nil count:0]);
+                
+            });
+            return;
+        }
+    }else{
+        addr.sin_addr = *(__bridge struct in_addr *)_ip;
     }
     
     NSTimeInterval *intervals = (NSTimeInterval *)malloc(sizeof(NSTimeInterval) * _count);

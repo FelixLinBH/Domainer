@@ -18,10 +18,11 @@ typedef void (^TcpPingCompleteHandler)(TcpPingResult *r);
 @property (nonatomic) NSString *host;
 @property (nonatomic) NSInteger count;
 @property (nonatomic) NSInteger port;
-
+@property (nonatomic) NSString *ip;
 @property (readonly) TcpPingCompleteHandler complete;
 
 + (instancetype)start:(NSString*)host
              complete:(TcpPingCompleteHandler)complete;
-
++ (instancetype)startWithIP:(NSString*)ip
+                   complete:(TcpPingCompleteHandler)complete;
 @end

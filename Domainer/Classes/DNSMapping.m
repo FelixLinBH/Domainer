@@ -31,6 +31,16 @@
     }];
 }
 
+-(void)connectIPWithComplete:(DNSCompleteHandler)complete{
+   [TCPPing startWithIP:_ip complete:^(TcpPingResult *r) {
+       _avgTime = r.avgTime;
+       _code = r.code;
+       if (complete) {
+           complete();
+       }
+   }];
+}
+
 - (void)encodeWithCoder:(NSCoder *)encoder {
     //Encode properties, other class variables, etc.
     [encoder encodeDouble:_avgTime forKey:@"avgTime"];

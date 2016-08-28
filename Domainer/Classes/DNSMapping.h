@@ -18,4 +18,5 @@ typedef void (^DNSCompleteHandler)(void);
 @property (nonatomic) NSInteger *code;
 -(instancetype)initWithHost:(NSString *)host;
 -(void)connectHostWithComplete:(DNSCompleteHandler)complete;
+-(void)connectIPWithComplete:(DNSCompleteHandler)complete;
 @end
