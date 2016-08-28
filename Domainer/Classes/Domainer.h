@@ -8,12 +8,11 @@
 
 #import <Foundation/Foundation.h>
 #import "DomainMapping.h"
-
 @interface Domainer : NSObject
 @property (copy, nonatomic) NSMutableArray *domainArray;
-
+@property (strong, nonatomic) NSMutableDictionary *mappingTable;
 + (Domainer *)sharedInstance;
 + (void)setMapper:(NSArray *)mappingArray;
 + (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSArray *noResolvedDomain))completeHandler;
-
++ (NSDictionary *)getMappingTable;
 @end

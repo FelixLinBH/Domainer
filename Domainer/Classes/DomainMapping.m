@@ -7,7 +7,7 @@
 //
 
 #import "DomainMapping.h"
-#import "DNSMapping.h"
+
 
 /*
  {
@@ -62,9 +62,10 @@
                     [[NSUserDefaults standardUserDefaults] synchronize];
                     //save NSUserDefaults
                     //swizzle NSURLRequest
-                    complete(YES);
+                    
+                    complete(YES,bestDomain);
                 }else{
-                    complete(NO);
+                    complete(NO,nil);
                 }
                 
             }
@@ -80,7 +81,7 @@
         DNSMapping *bestDomain = [NSKeyedUnarchiver unarchiveObjectWithData:encodedObject];
         [bestDomain connectIPWithComplete:^{
             if (bestDomain.avgTime != FLT_MAX) {
-                complete(YES);
+                complete(YES,bestDomain);
             }else{
                 [self findBestDomainFromJsonArrayWithCompleteHandler:complete];
             }

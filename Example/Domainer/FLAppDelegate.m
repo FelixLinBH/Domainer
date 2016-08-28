@@ -21,7 +21,9 @@
     
     [Domainer runWithCompleteHandler:^(BOOL sucess, NSArray *noResolvedDomain) {
         if (sucess) {
-            NSLog(@"Domainer Sucess");
+            NSURL *url = [NSURL URLWithString:@"http://www.mainDomain.com"];
+            NSURLRequest *request =  [NSURLRequest requestWithURL:url];
+            NSLog(@"request %@",request);
         }else{
             NSLog(@"Some Failes");
         }

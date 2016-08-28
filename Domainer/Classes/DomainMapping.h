@@ -7,7 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-typedef void (^completeHandler)(BOOL sucess);
+#import "DNSMapping.h"
+
+typedef void (^completeHandler)(BOOL sucess,DNSMapping* dnsMapping);
 
 @interface DomainMapping : NSObject
 @property (nonatomic) NSString *domainName;
