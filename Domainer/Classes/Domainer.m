@@ -26,7 +26,7 @@
     [[self sharedInstance]setMapper:mappingArray];
 }
 
-+ (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler{
++ (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSArray *noResolvedDomain))completeHandler{
     [[self sharedInstance]runWithCompleteHandler:completeHandler];
 }
 
@@ -51,7 +51,7 @@
     }
 }
 
-- (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSError *error))completeHandler{
+- (void)runWithCompleteHandler:(void (^)(BOOL sucess, NSArray *noResolvedDomain))completeHandler{
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         NSMutableArray *noResolvedDomain = [[NSMutableArray alloc]init];
         dispatch_group_t mappingGroup = dispatch_group_create();

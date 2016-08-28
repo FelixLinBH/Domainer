@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'Domainer'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
 s.summary          = 'Manage multi-domain url auto mapping ip address table.'
 
 # This description is used to generate tags and improve search results.
@@ -25,7 +25,7 @@ Manage multi-domain url mapping IP address,it prodives find best domain which wi
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'felix.lin' => 'fly_81211@hotmail.com' }
-  s.source           = { :git => 'https://github.com/<GITHUB_USERNAME>/Domainer.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/FelixLinBH/Domainer.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '8.0'
