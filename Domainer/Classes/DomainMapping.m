@@ -52,8 +52,7 @@
             
             if (complete) { // 7
                 NSSortDescriptor * descriptor = [[NSSortDescriptor alloc] initWithKey:@"avgTime" ascending:YES];
-                _dnsMappingMutableArray = [_dnsMappingMutableArray sortedArrayUsingDescriptors:@[descriptor]];
-                DNSMapping *bestDomain = _dnsMappingMutableArray.firstObject;
+                DNSMapping *bestDomain = [_dnsMappingMutableArray sortedArrayUsingDescriptors:@[descriptor]].firstObject;
                 if (!isnan(bestDomain.avgTime)) {
                     //found best domain
                     NSData *encodedObject = [NSKeyedArchiver archivedDataWithRootObject:bestDomain];
