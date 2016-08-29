@@ -31,7 +31,7 @@ It provides:
 
 ###Run with callback###
 ```
-Domainer runWithCompleteHandler:^(BOOL sucess, NSArray *noResolvedDomain) {
+[Domainer runWithCompleteHandler:^(BOOL sucess, NSArray *noResolvedDomain) {
 	if(sucess){
 	 //Start query some api...
 	};
