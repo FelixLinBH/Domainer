@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		37A888AE1D773898006E1AB8 /* DNSMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 37A888A21D773898006E1AB8 /* DNSMapping.h */; };
 		37A888AF1D773898006E1AB8 /* DNSMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A888A31D773898006E1AB8 /* DNSMapping.m */; };
-		37A888B01D773898006E1AB8 /* Domainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37A888A41D773898006E1AB8 /* Domainer.h */; };
+		37A888B01D773898006E1AB8 /* Domainer.h in Headers */ = {isa = PBXBuildFile; fileRef = 37A888A41D773898006E1AB8 /* Domainer.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		37A888B11D773898006E1AB8 /* Domainer.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A888A51D773898006E1AB8 /* Domainer.m */; };
 		37A888B21D773898006E1AB8 /* DomainMapping.h in Headers */ = {isa = PBXBuildFile; fileRef = 37A888A61D773898006E1AB8 /* DomainMapping.h */; };
 		37A888B31D773898006E1AB8 /* DomainMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 37A888A71D773898006E1AB8 /* DomainMapping.m */; };
