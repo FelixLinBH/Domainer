@@ -8,6 +8,7 @@
 
 #import "Domainer.h"
 #import "NSURLRequest+Domainer.h"
+#import "DomainMapping.h"
 
 @implementation Domainer
 
